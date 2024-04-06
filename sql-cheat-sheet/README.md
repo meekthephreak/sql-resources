@@ -1,4 +1,3 @@
 # SQL Cheat Sheet
 
 ## Introduction
-
