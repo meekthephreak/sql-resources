@@ -20,4 +20,4 @@ Your contributions are welcome! If you have suggestions for additional topics, i
 
 ## License
 
-This SQL Cheat Sheet is provided under the [MIT License](LICENSE). Feel free to use, share, and modify it as per the license terms.
+This SQL Cheat Sheet is provided under the [MIT License](https://github.com/meekthephreak/sql-resources/blob/main/LICENSE). Feel free to use, share, and modify it as per the license terms.
