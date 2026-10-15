@@ -1,141 +1,101 @@
-# SQL Cheat Sheet
+# MySQL Cheat Sheet
 
-This cheat sheet provides a quick reference to essential SQL commands and their syntax. It's designed to help both beginners and experienced users recall SQL commands for database operations, querying, and manipulation.
-
-## Disclaimer
-
-*Please note that SQL dialects, such as MySQL, PostgreSQL, SQL Server (T-SQL), Oracle (PL/SQL), and others, may have variations in their syntax, functions, and features. This cheat sheet primarily focuses on standard SQL commands. However, some examples might not work directly or may require modifications to run on different SQL database systems. Always refer to the documentation specific to the SQL dialect you are using to ensure compatibility and understand the nuances of its syntax and capabilities.*
-
-## Basic SQL Commands
-
-### SELECT
+Load the [sample database](../sample-database/README.md) first. These examples target MySQL 8.0.16+. Run each SQL block separately.
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name;
+USE sql_resources_helpdesk_lab;
+SELECT ticket_id, category, status FROM tickets ORDER BY ticket_id;
+SELECT DISTINCT category FROM tickets ORDER BY category;
+SELECT ticket_id FROM tickets ORDER BY opened_date DESC, ticket_id DESC LIMIT 5;
 ```
 
-Retrieves data from one or more columns in a table.
+## Filtering and operator precedence
 
-### INSERT INTO
+AND binds more tightly than OR; use parentheses to make intent explicit. A semicolon ends the statement, so OR and NOT belong inside the same WHERE clause.
 
 ```sql
-INSERT INTO table_name (column1, column2, ...)
-VALUES (value1, value2, ...);
+SELECT ticket_id FROM tickets
+WHERE (priority='High' OR priority='Critical') AND NOT (status='Resolved');
+SELECT ticket_id FROM tickets WHERE priority IN ('High','Critical');
+SELECT ticket_id FROM tickets
+WHERE opened_date BETWEEN '2026-10-07' AND '2026-10-12';
+SELECT hostname FROM assets WHERE hostname LIKE 'SEC-%';
+SELECT ticket_id FROM tickets WHERE technician_id IS NULL;
+SELECT ticket_id FROM tickets WHERE resolved_date IS NOT NULL;
 ```
 
-Inserts new data into a table.
+Never compare NULL using `= NULL`. NULL means unknown/absent, not zero or an empty string. For timestamps, use a half-open interval (`>= start AND < next_day`) to include a whole day.
 
-### UPDATE
+## Aggregates, GROUP BY, and HAVING
+
+WHERE filters rows before grouping; HAVING filters the resulting groups. COUNT(*) counts rows, while COUNT(column) excludes NULL values.
 
 ```sql
-UPDATE table_name
-SET column1 = value1, column2 = value2, ...
-WHERE condition;
+SELECT category, COUNT(*) AS ticket_count FROM tickets
+GROUP BY category HAVING COUNT(*) >= 3 ORDER BY category;
+SELECT SUM(minutes_spent) AS total_minutes,
+       ROUND(AVG(minutes_spent),2) AS average_minutes,
+       MIN(minutes_spent) AS shortest, MAX(minutes_spent) AS longest
+FROM work_logs;
 ```
 
-Modifies existing data in table
+Select only grouped columns or aggregates when grouping. Do not disable ONLY_FULL_GROUP_BY to hide ambiguous results.
 
-### DELETE
+## Join types
 
 ```sql
-DELETE FROM table_name
-WHERE condition;
+-- INNER: tickets with matching requester records.
+SELECT t.ticket_id,e.employee_name FROM tickets t
+INNER JOIN employees e ON e.employee_id=t.employee_id;
+-- LEFT: retain tickets with no technician.
+SELECT t.ticket_id,COALESCE(x.technician_name,'Unassigned') AS technician
+FROM tickets t LEFT JOIN technicians x ON x.technician_id=t.technician_id;
+-- CROSS: all combinations; here, 4 departments x 4 technicians = 16 rows.
+SELECT d.department_name,x.technician_name
+FROM departments d CROSS JOIN technicians x;
 ```
 
-Removes existing data from a table.
+RIGHT JOIN retains all rows on its right side; usually reverse the tables and use LEFT JOIN for readability. MySQL has no native FULL OUTER JOIN. A join to multiple work logs repeats ticket rows; aggregate at the intended grain to avoid inflated ticket counts.
 
-## Working with Conditions and Operators
-
-### WHERE
+## Subqueries and CASE
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition;
+SELECT e.employee_id,e.employee_name FROM employees e
+WHERE NOT EXISTS (SELECT 1 FROM tickets t WHERE t.employee_id=e.employee_id);
+SELECT ticket_id,
+ CASE WHEN resolved_date<=due_date THEN 'On Time' ELSE 'Late' END AS sla_result
+FROM tickets WHERE status='Resolved';
 ```
 
-Filters results based on a condition.
+NOT IN can produce surprising results when its subquery contains NULL; NOT EXISTS is useful for anti-joins.
 
-### AND, OR, NOT
+## Safe INSERT, UPDATE, and DELETE practice
+
+Run the entire block on one connection. The DELETE targets the newly inserted, unreferenced row; deleting a referenced parent may fail due to foreign keys.
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition1 AND condition2;
-OR condition3;
-NOT condition4;
+START TRANSACTION;
+INSERT INTO departments(department_id,department_name) VALUES(99,'Practice Only');
+UPDATE departments SET department_name='Updated Practice' WHERE department_id=99;
+SELECT * FROM departments WHERE department_id=99;
+DELETE FROM departments WHERE department_id=99;
+ROLLBACK;
 ```
 
-Combines multiple conditions in a WHERE clause.
+UPDATE or DELETE without WHERE affects every row. Preview the same predicate using SELECT and use primary-key predicates for focused edits. Workbench safe-update mode may reject broad writes; refine the query rather than turning it off globally.
 
-## Managing Databases and Tables
-
-### Create Database
+## Table definitions and constraints
 
 ```sql
-CREATE DATABASE database_name;
-```
-
-Creates a new database
-
-### DROP DATABASE
-
-```sql
-DROP DATABASE database_name;
-```
-
-Deletes an existing database.
-
-### CREATE TABLE
-
-```sql
-CREATE TABLE table_name (
-    column1 datatype,
-    column2 datatype,
-    ...
+-- Disposable lab example; DDL implicitly commits and is not rolled back.
+CREATE TABLE IF NOT EXISTS lab_notes (
+ note_id INT PRIMARY KEY,
+ ticket_id INT NOT NULL,
+ note_text VARCHAR(255) NOT NULL,
+ FOREIGN KEY(ticket_id) REFERENCES tickets(ticket_id)
 );
 ```
 
-Creates a new table in the database.
+PRIMARY KEY identifies a row; UNIQUE prevents duplicates; FOREIGN KEY enforces references; NOT NULL requires a value; CHECK restricts valid values. Use DECIMAL for exact financial quantities. ALTER TABLE changes structure; DROP TABLE removes a table and its data. Review definitions before executing either.
 
-### DROP TABLE
-
-```sql
-DROP TABLE table_name;
-```
-
-Deletes an existing table from the database.
-
-## Advanced Operations
-
-### JOINs
-
-```sql
-SELECT Orders.OrderID, Customers.CustomerName
-FROM Orders
-INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
-```
-
-Combines rows from two or more tables based on a related column.
-
-### GROUP BY
-
-```sql
-SELECT column_name, COUNT(*)
-FROM table_name
-GROUP BY column_name;
-```
-
-Groups rows that have the same values in specified columns into summary rows.
-
-### HAVING
-
-```sql
-SELECT column_name, COUNT(*)
-FROM table_name
-GROUP BY column_name
-HAVING COUNT(*) > 1;
-```
-
-Used with GROUP BY to filter groups based on a condition.
+See [advanced topics](advanced-topics.md) and [security](security.md) for the next steps.

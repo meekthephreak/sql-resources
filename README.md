@@ -1,34 +1,41 @@
 # SQL Resources
 
-Welcome to the SQL Resources repository! This is a curated collection designed to help developers of all levels improve their SQL skills. Whether you're just starting out or looking to brush up on advanced concepts, you'll find valuable resources here.
+Hands-on SQL practice using a fictional IT help desk. Examples target **MySQL 8.0.16+**, including enforced CHECK constraints, CTEs, and window functions. MySQL Workbench is the client; you also need a running MySQL server and a connection with permission to create a lab database.
 
-## What's Inside?
+## Quick start in MySQL Workbench
 
-- **`sql-code/`**: Contains various SQL scripts and code snippets covering a wide range of topics, from basic queries to complex functions and procedures.
-- **`sample-database/`**: Includes files for setting up a sample relational database, allowing you to practice and experiment with real SQL commands in a live environment.
-- **`sql-cheat-sheet/`**: A quick reference guide filled with essential SQL syntax, commands, and examples to help you get up to speed quickly.
+1. Download or clone this repository and connect Workbench to your MySQL server.
+2. Choose **File > Open SQL Script** and open [the standalone practice lab](sample-database/MySQL_Workbench_Practice.sql).
+3. Execute the entire script using the Execute All lightning button. Read the setup count results and refresh **SCHEMAS**.
+4. Expand `sql_resources_helpdesk_lab`. Attempt the 22 commented exercises before using the commented answer key.
 
-## How to Use This Repository
+The standalone lab contains schema, seed data, exercises, and expected answers. It leaves existing records unchanged when rerun; it does not reset completed edits.
 
-1. **Explore**: Browse through the folders to find the resources that match your learning needs.
-2. **Practice**: Use the sample database to practice running SQL queries and applying what you've learned.
-3. **Contribute**: If you have suggestions, corrections, or additional resources, please feel free to contribute. Your knowledge can help others!
+## Learning path
 
-## Contributing
+| Step | Material | Purpose |
+|---|---|---|
+| 1 | [Cheat sheet](sql-cheat-sheet/cheat-sheet.md) | Syntax and common mistakes |
+| 2 | [Sample database](sample-database/README.md) | Load and understand the data |
+| 3 | [SQL scripts](sql-code/README.md) | Run 21 queries, functions, procedures, and a trigger |
+| 4 | [Advanced topics](sql-cheat-sheet/advanced-topics.md) | CTEs, windows, transactions, views, indexes, query plans |
+| 5 | [Security](sql-cheat-sheet/security.md) | Parameterization and least privilege |
 
-We welcome contributions from everyone! If you'd like to contribute, please:
-- Fork the repository.
-- Make your changes.
-- Submit a pull request.
+The modular schema/data scripts and standalone lab are alternative loaders for the same database. Do not expect twice as many records if you execute both.
 
-For more details, see the `CONTRIBUTING.md` file.
+## Prerequisites and behavior
 
-## License
+- Basic query practice requires database/table creation and read/write permissions in this lab schema.
+- Stored routines, triggers, and views require additional privileges; see the individual guides.
+- Use a disposable lab database. Examples explicitly select `sql_resources_helpdesk_lab`.
+- Transaction demos roll back their changes. DDL such as CREATE, DROP, and ALTER can implicitly commit in MySQL; keep DDL outside those demos.
+- Dates are fixed to October 2026 so expected results stay reproducible.
+- No real accounts, operational data, or credentials are included.
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+## Validation
 
-## Disclaimer
+The seed relationships and all 21 read queries were checked locally using SQLite with a MySQL DATEDIFF compatibility function. Native MySQL execution was unavailable during authoring. MySQL-specific routines, triggers, privilege examples, and DDL need verification on your MySQL server. The [validation script](sql-code/validate.sql) checks the original seed data and exercises the rollback demos.
 
-Remember, SQL dialects (like MySQL, PostgreSQL, SQL Server, etc.) may have different syntaxes. This repository focuses on standard SQL, but always check the specifics of the SQL dialect you are using.
+## Contributing and license
 
-Thank you for visiting the SQL Resources repository! Happy learning, and we hope you find these resources helpful in your SQL journey.
+See [contribution guidelines](CONTRIBUTING.md), the [Code of Conduct](CODE_OF_CONDUCT.md), and the [MIT license](LICENSE).
