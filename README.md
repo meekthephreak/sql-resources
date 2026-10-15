@@ -2,6 +2,8 @@
 
 Hands-on SQL practice using a fictional IT help desk. Examples target **MySQL 8.0.16+**, including enforced CHECK constraints, CTEs, and window functions. MySQL Workbench is the client; you also need a running MySQL server and a connection with permission to create a lab database.
 
+For step-by-step instructions, checkpoints, and error fixes, see the [Lab Walkthrough](LAB_README.md).
+
 ## Quick start in MySQL Workbench
 
 1. Download or clone this repository and connect Workbench to your MySQL server.

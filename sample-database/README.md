@@ -2,6 +2,8 @@
 
 All data is fictional. Use MySQL 8.0.16+ and a lab account with schema/table creation and insert privileges.
 
+See the [Lab Walkthrough](../LAB_README.md) for guided exercises and detailed troubleshooting.
+
 ## Choose a loader
 
 **Single file:** Open `MySQL_Workbench_Practice.sql` in Workbench and execute all. This includes 22 exercises and a commented answer key.
