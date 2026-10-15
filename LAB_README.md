@@ -72,7 +72,15 @@ Open and execute [validate.sql](sql-code/validate.sql). Every column ending in `
 
 ## 4. Work through the queries
 
-For each exercise, write your own query in a new tab, execute it, inspect its Result Grid, and then compare with the answer key. Begin your tab with:
+### Option 1: exercises-only worksheet
+
+After loading and validating the database, open [Exercises_Only.sql](sample-database/Exercises_Only.sql) through **File > Open SQL Script**. It includes all 22 prompts with blank space for your SQL and no solutions or expected-result spoilers. To avoid opening answers during setup, use schema.sql followed by data.sql as your loader.
+
+Write SQL below each prompt, select and execute one answer at a time, and save your edited copy. For exercise 22, execute the complete transaction block on one connection and verify the post-rollback result. The worksheet does not create or load the database. Compare with the standalone script's answer key only when ready.
+
+### Option 2: guided walkthrough
+
+Continue below for worked examples and expected results. For each exercise, write your own query in a new tab, execute it, inspect its Result Grid, and then compare with the answer key. Begin your tab with:
 
 ```sql
 USE sql_resources_helpdesk_lab;
@@ -141,7 +149,7 @@ Expect **16 rows**. Ticket 1 has **75 minutes**, ticket 9 has **105**, and ticke
 
 ### Continue independently
 
-| Exercises in standalone file | Focus |
+| Exercises in worksheet and standalone file | Focus |
 |---|---|
 | 1–6 | SELECT, filtering, NULL, sorting, grouping |
 | 7–15 | Joins, missing relationships, overdue reports, CASE |

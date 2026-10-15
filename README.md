@@ -9,9 +9,13 @@ For step-by-step instructions, checkpoints, and error fixes, see the [Lab Walkth
 1. Download or clone this repository and connect Workbench to your MySQL server.
 2. Choose **File > Open SQL Script** and open [the standalone practice lab](sample-database/MySQL_Workbench_Practice.sql).
 3. Execute the entire script using the Execute All lightning button. Read the setup count results and refresh **SCHEMAS**.
-4. Expand `sql_resources_helpdesk_lab`. Attempt the 22 commented exercises before using the commented answer key.
+4. Expand `sql_resources_helpdesk_lab`, then open [Exercises_Only.sql](sample-database/Exercises_Only.sql) to attempt all 22 prompts without solutions. Write your SQL below each prompt and save your own copy.
 
 The standalone lab contains schema, seed data, exercises, and expected answers. It leaves existing records unchanged when rerun; it does not reset completed edits.
+
+## Exercises-only workflow
+
+To set up without opening the embedded answer key, run [schema.sql](sample-database/schema.sql), then [data.sql](sample-database/data.sql), and finally open [Exercises_Only.sql](sample-database/Exercises_Only.sql). The worksheet does not load data. Execute your answers individually; run the complete transaction block for exercise 22. Compare with the standalone lab's answer key after attempting each exercise.
 
 ## Learning path
 

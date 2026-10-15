@@ -8,7 +8,7 @@ See the [Lab Walkthrough](../LAB_README.md) for guided exercises and detailed tr
 
 **Single file:** Open `MySQL_Workbench_Practice.sql` in Workbench and execute all. This includes 22 exercises and a commented answer key.
 
-**Separate files:** Execute `schema.sql` first, then `data.sql` in Workbench. This creates the identical base tables and seed records, without the embedded exercises. Execute `../sql-code/queries.sql` next.
+**Separate files:** Execute `schema.sql` first, then `data.sql` in Workbench. This creates the identical base tables and seed records, without the embedded exercises. Then open [Exercises_Only.sql](Exercises_Only.sql) to write your own answers. Use [queries.sql](../sql-code/queries.sql) afterward to review the 21 read-query solutions.
 
 In Workbench, use **File > Open SQL Script**. Refresh SCHEMAS after execution. Each script selects `sql_resources_helpdesk_lab`; no manual default-schema selection is needed.
 
@@ -20,6 +20,10 @@ In Workbench, use **File > Open SQL Script**. Refresh SCHEMAS after execution. E
 | assets | 8 | Owned and spare devices |
 | tickets | 16 | Open, in-progress, and resolved incidents |
 | work_logs | 13 | Minutes logged by technicians |
+
+## Exercises-only worksheet
+
+After either loader, open [Exercises_Only.sql](Exercises_Only.sql) in Workbench. It contains the same 22 prompts and space to write SQL, with no solutions or expected-result spoilers. Save an edited copy, execute each answer separately, and run exercise 22's transaction block together on one connection. The worksheet requires the loaded database; it does not create or seed tables. Review the standalone lab's answer key when ready.
 
 ## Relationships
 

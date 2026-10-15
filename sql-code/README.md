@@ -10,6 +10,10 @@ Load the sample database first. Target: MySQL 8.0.16+. Open each script in Workb
 | 4 | `triggers.sql` | Creates an audit table and assignment-change trigger; rolls back its demo |
 | 5 | `validate.sql` | Checks fresh dataset totals and basic query invariants |
 
+## Practice before reviewing solutions
+
+After loading [schema.sql](../sample-database/schema.sql) and [data.sql](../sample-database/data.sql), open [Exercises_Only.sql](../sample-database/Exercises_Only.sql) to attempt the 22 prompts without solutions. The standalone lab is an alternative loader. Save your own worksheet copy, run answers individually, and run exercise 22's transaction block together. Then use queries.sql to review the 21 read-query solutions and the standalone answer key for exercise 22. See the [Lab Walkthrough](../LAB_README.md) for loading instructions and troubleshooting.
+
 ## Workbench delimiters
 
 `DELIMITER $$` tells the client to send a whole routine definition even though its body contains semicolons. `END$$` ends that definition, and `DELIMITER ;` restores normal behavior. Execute the whole definition, including delimiter lines. DELIMITER is a client command, not server SQL; application migration tools may require sending the routine body as one statement instead.

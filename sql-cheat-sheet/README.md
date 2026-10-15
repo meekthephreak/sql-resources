@@ -6,4 +6,4 @@ Examples use MySQL 8.0.16+ and the [help desk database](../sample-database/READM
 - [Advanced topics](advanced-topics.md): CTEs, windows, transactions, views, indexes, and EXPLAIN.
 - [Security](security.md): parameterized application queries, safe writes, and privilege boundaries.
 
-Start with the cheat sheet, run the [practice lab](../sample-database/MySQL_Workbench_Practice.sql), then explore the advanced guide. MySQL syntax is not universally portable; DELIMITER, LIMIT, DATEDIFF, and privilege examples need adaptation for other engines.
+Start with the cheat sheet, load the database using the [setup instructions](../sample-database/README.md), then open [Exercises_Only.sql](../sample-database/Exercises_Only.sql) to write answers to 22 prompts without solutions. The worksheet does not load data. Use the [standalone practice lab](../sample-database/MySQL_Workbench_Practice.sql) for its answer key after attempting the exercises, then explore the advanced guide. MySQL syntax is not universally portable; DELIMITER, LIMIT, DATEDIFF, and privilege examples need adaptation for other engines.
