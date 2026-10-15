@@ -4,6 +4,10 @@ Hands-on SQL practice using a fictional IT help desk. Examples target **MySQL 8.
 
 For step-by-step instructions, checkpoints, and error fixes, see the [Lab Walkthrough](LAB_README.md).
 
+## New to SQL? Start here
+
+Read [SQL for Complete Beginners](beginner-guide/README.md) before the lab. It explains databases, SELECT *, punctuation, filtering, joins, safe changes, and a grouped command glossary with examples. No SQL knowledge is assumed.
+
 ## Quick start in MySQL Workbench
 
 1. Download or clone this repository and connect Workbench to your MySQL server.
@@ -21,6 +25,7 @@ To set up without opening the embedded answer key, run [schema.sql](sample-datab
 
 | Step | Material | Purpose |
 |---|---|---|
+| 0 | [Beginner guide](beginner-guide/README.md) | Learn SQL from the first statement; browse the command glossary |
 | 1 | [Cheat sheet](sql-cheat-sheet/cheat-sheet.md) | Syntax and common mistakes |
 | 2 | [Sample database](sample-database/README.md) | Load and understand the data |
 | 3 | [SQL scripts](sql-code/README.md) | Run 21 queries, functions, procedures, and a trigger |

@@ -2,6 +2,8 @@
 
 A guided route through the fictional IT help desk lab. Use this alongside the [standalone practice script](sample-database/MySQL_Workbench_Practice.sql). All examples target MySQL 8.0.16+.
 
+**Before your first query:** Read [SQL for Complete Beginners](beginner-guide/README.md) if terms such as SELECT, FROM, WHERE, rows, or columns are unfamiliar. It includes a command glossary to use alongside the exercises.
+
 ## Contents
 
 1. [Prepare Workbench](#1-prepare-workbench)

@@ -1,5 +1,7 @@
 # SQL Reference Guides
 
+**Brand new to SQL?** Begin with [SQL for Complete Beginners](../beginner-guide/README.md). It explains SELECT *, syntax, punctuation, and a broad glossary before moving into this quick reference.
+
 Examples use MySQL 8.0.16+ and the [help desk database](../sample-database/README.md).
 
 - [Cheat sheet](cheat-sheet.md): basic commands, filtering, joins, aggregation, and subqueries.
